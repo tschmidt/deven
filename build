@@ -1,0 +1,87 @@
+#!/usr/bin/evn zsh
+
+successfully() {
+  $* || (echo "\nfailed" 1>&2 && exit 1)
+}
+
+fancy_echo() {
+  echo "\n$1"
+}
+
+if -f /etc/zshenv; then
+  fancy_echo "Fixing OSX zsh environment bug ..."
+    successfully sudo mv /etc/{zshenv,zshrc}
+fi
+
+fancy_echo "Installing Homebrew, a good OS X package manager ..."
+  successfully ruby <(curl -fsS https://raw.github.com/mxcl/homebrew/go)
+  successfully brew update
+
+if ! grep -qs "recommended by brew doctor" ~/.zshrc; then
+  fancy_echo "Put Homebrew location earlier in PATH ..."
+    successfully echo "\n# recommended by brew doctor" >> ~/.zshrc
+    successfully echo "export PATH='/usr/local/bin:$PATH'\n" >> ~/.zshrc
+    successfully source ~/.zshrc
+fi
+
+fancy_echo "Installing Postgres, a good open source relational database ..."
+  successfully brew install postgres --no-python
+  successfully initdb /usr/local/var/postgres -E utf8
+
+fancy_echo "Installing The Silver Searcher (better than ack or grep) to search the contents of files ..."
+  successfully brew install the_silver_searcher
+
+fancy_echo "Installing ImageMagick, to crop and resize images ..."
+  successfully brew install imagemagick
+
+fancy_echo "Installing QT, used by Capybara Webkit for headless Javascript integration testing ..."
+  successfully brew install qt
+
+fancy_echo "Installing rbenv to manage Ruby versions ..."
+  successfully brew install rbenv
+  
+  if ! grep -qs "rbenv init" ~/.zshrc; then
+    successfully echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+    
+    fancy_echo "Enable shims and autocompletion ..."
+      successfully eval "$(rbenv init -)"
+  fi
+  
+  source ~/.zshrc
+
+fancy_echo "Installing rbenv-gem-rehash so the shell automatically picks up binaries after installing gems with binaries ..."
+  successfully brew install rbenv-gem-rehash
+
+fancy_echo "Installing ruby-build to install different Rubies ..."
+  successfully brew install ruby-build
+
+fancy_echo "Installing GNU Compiler Collection, a necessary prerequisite to installing Ruby ..."
+  successfully brew tap homebrew/dupes
+  successfully brew install apple-gcc42
+
+fancy_echo "Installing Ruby 1.9.3p194 ..."
+  CC=gcc-4.2 successfully rbenv install 1.9.3-p194
+
+fancy_echo "Installing Ruby 1.9.3p392 ..."
+  CC=gcc-4.2 successfully rbenv install 1.9.3-p392
+
+fancy_echo "Setting Ruby 1.9.3p392 as the global default ..."
+  successfully rbenv global 1.9.3-p392
+  successfully rbenv shell 1.9.3-p392
+
+fancy_echo "Updating to the latest Rubygems version ..."
+  successfully gem update --system
+
+fancy_echo "Installing critical Ruby gems for Rails development ..."
+  successfully gem install bundler foreman pg rails thin --no-document
+
+if ! grep -qs "DO NOT EDIT BELOW THIS LINE" ~/.zshrc; then
+  fancy_echo "Prepare ~/.zshrc for http://github.com/thoughtbot/dotfiles ..."
+    successfully echo "# DO NOT EDIT BELOW THIS LINE\n" >> ~/.zshrc
+fi
+
+fancy_echo "Installing dotfiles ..."
+  successfully mkdir ~/code/
+  successfully git clone https://git@github.com:tschmidt/dotfiles.git ~/code/dotfiles
+  successfully cd ~/code/dotfiles
+  successfully rake install

@@ -28,7 +28,13 @@ Read and then run the script
 What is sets up
 ---------------
 
-* Coming soon
+* Homebrew for managing operating system libraries on OS X
+* ImageMagick for cropping and resizing images
+* PostgreSQL for storing relational data
+* QT for headless JavaScript testing via Capybara Webkit
+* rbenv for managing versions of the Ruby programming language
+* Ruby Build for installing different Rubies
+* The Silver Searcher for finding things in files
 
 Credits
 -------
