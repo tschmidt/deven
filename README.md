@@ -16,11 +16,7 @@ Snow Leopard (OS X 10.6).
 Use [Command Line Tools for XCode](https://developer.apple.com/downloads/index.action)
 for Lion (OS X 10.7) or Mountain Lion (OS X 10.8).
 
-2) Set zsh as your login shell.
-
-    chsh -s /bin/zsh
-
-or you can use my [dotfiles](https://github.com/tschmidt/dotfiles) project to set this up using OhMyZsh.
+2) Run the install command below.
 
 Install
 -------
