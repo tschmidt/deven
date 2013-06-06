@@ -3,7 +3,7 @@ Deven
 
 DEVEN is script to set up my *dev*elopment *en*vironment on OS X
 
-This project is heavily influenced by the work done on Thoughtbots laptop project. You can find more information on this project [here](https://github.com/thoughtbot/laptop).
+This project is heavily influenced by the work done on thoughtbot's laptop project. You can find more information on this project [here](https://github.com/thoughtbot/laptop).
 
 Requirements
 ------------
