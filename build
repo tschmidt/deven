@@ -94,6 +94,6 @@ fi
 
 fancy_echo "Installing dotfiles ..."
   successfully mkdir ~/code/
-  successfully git clone https://git@github.com:tschmidt/dotfiles.git ~/code/dotfiles
+  successfully git clone git@github.com:tschmidt/dotfiles.git ~/code/dotfiles
   successfully cd ~/code/dotfiles
   successfully rake install
