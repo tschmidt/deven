@@ -23,7 +23,7 @@ Install
 
 Read and then run the script
 
-    zsh <(curl -s https://raw.github.com/tschmidt/deven/master/build)
+    zsh <(curl -s https://raw.githubusercontent.com/tschmidt/deven/master/build)
 
 What is sets up
 ---------------
