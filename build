@@ -1,4 +1,4 @@
-#!/usr/bin/evn zsh
+#!/usr/bin/env zsh
 
 successfully() {
   $* || (echo "\nfailed" 1>&2 && exit 1)
